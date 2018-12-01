@@ -1,15 +1,17 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'realm-android'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion rootProject.ext["androidTargetSdkVersion"]
+    buildToolsVersion rootProject.ext["androidBuildToolsVersion"]
+
     defaultConfig {
-        applicationId "piotr.bandurski.restcountries"
-        minSdkVersion 19
-        targetSdkVersion 28
+        applicationId androidApplicationId
+        minSdkVersion rootProject.ext["androidMinSdkVersion"]
+        targetSdkVersion rootProject.ext["androidTargetSdkVersion"]
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -22,16 +24,37 @@ android {
     }
 }
 
-dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+kapt {
+    arguments {
+        arg("toothpick_registry_package_name", androidPackageName)
+    }
+}
 
-    //di
-    implementation 'com.github.stephanenicolas.toothpick:toothpick-runtime:1.1.3'
-    implementation 'com.github.stephanenicolas.toothpick:smoothie:1.1.3'
-    annotationProcessor 'com.github.stephanenicolas.toothpick:toothpick-compiler:1.1.3'
+
+dependencies {
+    implementation kotlinDependencies.runtime
+    implementation supportDependencies.appCompatv7
+    implementation supportDependencies.material
+    implementation supportDependencies.constraintlayout
+
+    //DI
+    implementation diDependencies.toothpick
+    implementation diDependencies.toothpickSmoothie
+    kapt diDependencies.toothpickCompiler
+
+    //VIEW
+    implementation viewDependencies.materialprogressbar
+    implementation 'com.github.ar-android:AndroidSvgLoader:1.0.1'
+
+    //Retrofit
+    implementation restDependencies.retrofit
+    implementation restDependencies.retrofitGsonConverter
+    implementation restDependencies.retrofitRxJava2Adapter
+    implementation restDependencies.okHttpLogging
+
+    //RxJava
+    implementation rxDependencies.rxJava2
+    implementation rxDependencies.rxAndroid2
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

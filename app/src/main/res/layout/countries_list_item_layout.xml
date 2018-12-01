@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_margin="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp">
+
+        <TextView
+                android:id="@+id/countryNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="title"
+                app:layout_constraintStart_toEndOf="@+id/flagImageView"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+                android:id="@+id/currencyTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="text"
+                app:layout_constraintTop_toBottomOf="@+id/countryNameTextView"
+                app:layout_constraintStart_toStartOf="@+id/countryNameTextView"/>
+
+        <TextView
+                android:id="@+id/phoneNumberCodeTextView"
+                android:layout_width="wrap_content"
+                tools:text="text"
+                android:layout_height="wrap_content" app:layout_constraintTop_toBottomOf="@+id/currencyTextView"
+                app:layout_constraintStart_toStartOf="@+id/currencyTextView"/>
+
+        <TextView
+                android:id="@+id/internetDomainNameTextView"
+                android:layout_width="wrap_content"
+                tools:text="text"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/phoneNumberCodeTextView"
+                app:layout_constraintStart_toStartOf="@+id/phoneNumberCodeTextView"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/flagImageView"
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
