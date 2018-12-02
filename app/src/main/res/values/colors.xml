@@ -5,4 +5,5 @@
     <color name="colorAccent">#D81B60</color>
     <color name="toolbarProgressbarColor">@color/colorAccent</color>
     <color name="primaryTextColor">#ffff</color>
+    <color name="gray_100">#F5F5F5</color>
 </resources>

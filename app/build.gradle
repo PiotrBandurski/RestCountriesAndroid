@@ -44,7 +44,8 @@ dependencies {
 
     //VIEW
     implementation viewDependencies.materialprogressbar
-    implementation 'com.github.ar-android:AndroidSvgLoader:1.0.1'
+    implementation viewDependencies.svgLoader
+    implementation viewDependencies.sickyHeaders
 
     //Retrofit
     implementation restDependencies.retrofit

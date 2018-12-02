@@ -3,12 +3,14 @@ package piotr.bandurski.restcountries.presentation.list
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.brandongogetap.stickyheaders.StickyLayoutManager
 import kotlinx.android.synthetic.main.countries_list_fragment_layout.*
 import piotr.bandurski.restcountries.R
 import piotr.bandurski.restcountries.base.BaseMVPViewFragment
 import piotr.bandurski.restcountries.base.MvpPresenter
 import piotr.bandurski.restcountries.data.model.database.Country
 import piotr.bandurski.restcountries.presentation.list.adapter.CountriesListAdapter
+import piotr.bandurski.restcountries.presentation.list.adapter.CountriesListFactory
 import javax.inject.Inject
 
 /**
@@ -23,6 +25,9 @@ class CountriesListFragment @Inject constructor(): BaseMVPViewFragment(R.layout.
     @Inject
     lateinit var countriesListAdapter: CountriesListAdapter
 
+    @Inject
+    lateinit var countriesListFactory: CountriesListFactory
+
     override fun getPresenter(): MvpPresenter<Nothing> = presenter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,7 +41,7 @@ class CountriesListFragment @Inject constructor(): BaseMVPViewFragment(R.layout.
     }
 
     override fun bindCountriesToView(countries: List<Country>) {
-        countriesListAdapter.submitList(countries)
+        countriesListAdapter.submitList(countriesListFactory.create(countries))
     }
 
     override fun showLoading() = getBaseActivity().showToolbarProgress()
@@ -45,7 +50,7 @@ class CountriesListFragment @Inject constructor(): BaseMVPViewFragment(R.layout.
 
     private fun setupRecyclerView(){
         recyclerView.apply {
-            layoutManager = LinearLayoutManager(requireContext())
+            layoutManager = StickyLayoutManager(requireContext(), countriesListAdapter)
             adapter = countriesListAdapter
         }
     }

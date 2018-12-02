@@ -20,6 +20,7 @@ abstract class BaseActivity(@LayoutRes private val layoutRes: Int = R.layout.bas
         super.onCreate(savedInstanceState)
         DependencyUtil.openScopeAndInject(this)
         setContentView(layoutRes)
+        setSupportActionBar(toolbar)
         setTitle(R.string.app_name)
         bindOnClickListeners()
         collectExtras()
