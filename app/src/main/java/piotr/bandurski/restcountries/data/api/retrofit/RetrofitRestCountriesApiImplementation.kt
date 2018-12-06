@@ -13,4 +13,5 @@ class RetrofitRestCountriesApiImplementation @Inject constructor(private val ret
 
     override fun getAllCountries() = retrofitApiRequests.getAllCountries()
 
+    override fun queryCountriesByName(query: String?) = retrofitApiRequests.queryCountries(query)
 }

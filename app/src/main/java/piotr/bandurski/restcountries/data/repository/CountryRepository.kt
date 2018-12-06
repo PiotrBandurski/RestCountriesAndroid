@@ -19,4 +19,6 @@ class CountryRepository @Inject constructor(private val countryMapper: CountryMa
     fun saveAllCountriesToDatabase(countries: List<Country>) = restCountriesDatabase.saveCountries(countries)
 
     fun getAllCountriesFromDatabase() = restCountriesDatabase.getAllCountries()
+
+    fun queryCountriesByName(query: String?) = restCountriesApi.queryCountriesByName(query).map { countryMapper.mapCountries(it) }
 }

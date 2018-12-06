@@ -1,10 +1,10 @@
 package piotr.bandurski.restcountries.presentation.list
 
 import android.os.Bundle
-import piotr.bandurski.restcountries.base.BaseActivity
+import piotr.bandurski.restcountries.base.AbstractSearchableActivity
 import javax.inject.Inject
 
-class CountriesListActivity : BaseActivity() {
+class CountriesListActivity : AbstractSearchableActivity() {
 
     @Inject
     lateinit var countriesListFragment: CountriesListFragment

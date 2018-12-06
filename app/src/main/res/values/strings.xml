@@ -3,4 +3,5 @@
     <string name="search">Search</string>
     <string name="error_cannot_connect_to_server">Cannot connect to server</string>
     <string name="some_error">Some error</string>
+    <string name="no_results">No results</string>
 </resources>

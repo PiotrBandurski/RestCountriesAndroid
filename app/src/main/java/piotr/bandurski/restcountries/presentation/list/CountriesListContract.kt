@@ -14,9 +14,12 @@ interface CountriesListContract {
         fun bindCountriesToView(countries: List<Country>)
         fun showLoading()
         fun hideLoading()
+        fun showNoCountriesFoundInfo()
+        fun hideNoCountriesFoundInfo()
     }
 
     interface Presenter: MvpPresenter<View>{
         fun loadCountries()
+        fun queryCountries(query: String?)
     }
 }

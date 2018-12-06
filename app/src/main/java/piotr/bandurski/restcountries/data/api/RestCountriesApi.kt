@@ -11,4 +11,6 @@ interface RestCountriesApi {
 
     fun getAllCountries(): Single<List<CountryApiModel>>
 
+    fun queryCountriesByName(query: String?): Single<List<CountryApiModel>>
+
 }
