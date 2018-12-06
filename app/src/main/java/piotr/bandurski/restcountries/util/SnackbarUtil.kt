@@ -7,8 +7,10 @@ import androidx.annotation.StringRes
 import com.google.android.material.snackbar.Snackbar
 import piotr.bandurski.restcountries.R
 import piotr.bandurski.restcountries.base.BaseActivity
+import piotr.bandurski.restcountries.dependencyinjection.annotations.ActivitySingleton
 import javax.inject.Inject
 
+@ActivitySingleton
 class SnackbarUtil @Inject constructor(private val activity: BaseActivity) {
 
     private var snackbar: Snackbar? = null

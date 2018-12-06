@@ -36,6 +36,9 @@ dependencies {
     implementation supportDependencies.appCompatv7
     implementation supportDependencies.material
     implementation supportDependencies.constraintlayout
+    implementation supportDependencies.viewmodel
+    implementation supportDependencies.extensions
+    kapt supportDependencies.lifecycleCompiler
 
     //DI
     implementation diDependencies.toothpick

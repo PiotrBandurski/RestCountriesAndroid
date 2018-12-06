@@ -5,11 +5,12 @@ import piotr.bandurski.restcountries.presentation.list.adapter.viewmodel.Abstrac
 import piotr.bandurski.restcountries.presentation.list.adapter.viewmodel.CountryViewModel
 import piotr.bandurski.restcountries.presentation.list.adapter.viewmodel.HeaderViewModel
 import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * Created by Piotr Bandurski  on 02/12/2018.
  */
-
+@Singleton
 class CountriesListFactory @Inject constructor() {
 
     fun create(countries: List<Country>): List<AbstractCountryListViewModel> {

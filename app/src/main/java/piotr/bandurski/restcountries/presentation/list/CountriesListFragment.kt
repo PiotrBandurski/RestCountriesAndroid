@@ -1,16 +1,18 @@
 package piotr.bandurski.restcountries.presentation.list
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.View
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.brandongogetap.stickyheaders.StickyLayoutManager
 import kotlinx.android.synthetic.main.countries_list_fragment_layout.*
+import piotr.bandurski.restcountries.C
 import piotr.bandurski.restcountries.R
 import piotr.bandurski.restcountries.base.BaseMVPViewFragment
 import piotr.bandurski.restcountries.base.MvpPresenter
-import piotr.bandurski.restcountries.data.model.database.Country
 import piotr.bandurski.restcountries.presentation.list.adapter.CountriesListAdapter
-import piotr.bandurski.restcountries.presentation.list.adapter.CountriesListFactory
+import piotr.bandurski.restcountries.presentation.list.adapter.viewmodel.AbstractCountryListViewModel
 import javax.inject.Inject
 
 /**
@@ -25,14 +27,15 @@ class CountriesListFragment @Inject constructor(): BaseMVPViewFragment(R.layout.
     @Inject
     lateinit var countriesListAdapter: CountriesListAdapter
 
-    @Inject
-    lateinit var countriesListFactory: CountriesListFactory
+    private val countriesViewModel by lazy {
+        ViewModelProviders.of(this).get(CountriesListViewModel::class.java)
+    }
 
     override fun getPresenter(): MvpPresenter<Nothing> = presenter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupRecyclerView()
+        setupRecyclerView(savedInstanceState)
     }
 
     override fun onStart() {
@@ -40,18 +43,29 @@ class CountriesListFragment @Inject constructor(): BaseMVPViewFragment(R.layout.
         presenter.loadCountries()
     }
 
-    override fun bindCountriesToView(countries: List<Country>) {
-        countriesListAdapter.submitList(countriesListFactory.create(countries))
+    override fun getViewModel() = countriesViewModel
+
+    override fun bindCountriesToView(countiesListViewModels: List<AbstractCountryListViewModel>) {
+        countriesListAdapter.submitList(countiesListViewModels)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putParcelable(C.Parcerable.RECYCLER_VIEW_POSSITION, recyclerView.layoutManager?.onSaveInstanceState())
+        super.onSaveInstanceState(outState)
     }
 
     override fun showLoading() = getBaseActivity().showToolbarProgress()
 
     override fun hideLoading() = getBaseActivity().hideToolbarProgress()
 
-    private fun setupRecyclerView(){
+    private fun setupRecyclerView(savedInstanceState: Bundle?){
         recyclerView.apply {
             layoutManager = StickyLayoutManager(requireContext(), countriesListAdapter)
             adapter = countriesListAdapter
+        }
+        bindCountriesToView(countriesViewModel.countriesListViewModels)
+        savedInstanceState?.getParcelable<Parcelable>(C.Parcerable.RECYCLER_VIEW_POSSITION)?.let {
+            recyclerView.layoutManager?.onRestoreInstanceState(it)
         }
     }
 }

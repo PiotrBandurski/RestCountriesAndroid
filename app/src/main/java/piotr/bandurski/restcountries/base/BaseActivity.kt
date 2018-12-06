@@ -44,11 +44,23 @@ abstract class BaseActivity(@LayoutRes private val layoutRes: Int = R.layout.bas
 
     protected fun collectExtras(){}
 
+    fun openFragment(clazz: Class<out Fragment>){
+        openFragment(DependencyUtil.getInstance(clazz, this))
+    }
+
     fun openFragment(fragmentToOpen: Fragment) {
         val fragMan = supportFragmentManager
         val fragTransaction = fragMan.beginTransaction()
         fragTransaction.replace(fragmentId, fragmentToOpen, fragmentToOpen.javaClass.simpleName)
         fragTransaction.addToBackStack(fragmentToOpen.javaClass.simpleName)
         fragTransaction.commit()
+    }
+
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount > 1) {
+            supportFragmentManager.popBackStack()
+        } else {
+            finish()
+        }
     }
 }

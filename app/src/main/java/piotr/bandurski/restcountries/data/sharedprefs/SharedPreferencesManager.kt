@@ -1,13 +1,15 @@
 package piotr.bandurski.restcountries.data.sharedprefs
 
-import android.content.Context
+import android.app.Application
 import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * Created by Piotr Bandurski  on 30/11/2018.
  */
 
-class SharedPreferencesManager @Inject constructor(private val context: Context) {
+@Singleton
+class SharedPreferencesManager @Inject constructor(context: Application) {
 
     companion object {
         private val LAST_COUNTRIES_DOWNLOAD_TIME_STAMP = "LAST_COUNTRIES_DOWNLOAD_TIME_STAMP"

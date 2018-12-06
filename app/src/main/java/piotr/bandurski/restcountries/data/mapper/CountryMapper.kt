@@ -5,11 +5,12 @@ import piotr.bandurski.restcountries.data.model.api.CurrencyApiModel
 import piotr.bandurski.restcountries.data.model.database.Country
 import piotr.bandurski.restcountries.data.model.database.Currency
 import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * Created by Piotr Bandurski  on 30/11/2018.
  */
-
+@Singleton
 class CountryMapper @Inject constructor() {
 
     fun mapCountries(apiModels: List<CountryApiModel>): List<Country> {

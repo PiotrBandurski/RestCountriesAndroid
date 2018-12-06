@@ -13,4 +13,8 @@ public interface C {
     interface Data {
         Long EXPIRY_TIME = 16 * 60 * 60 * 1000L;
     }
+
+    interface Parcerable {
+        String RECYCLER_VIEW_POSSITION = "RECYCLER_VIEW_POSSITION";
+    }
 }

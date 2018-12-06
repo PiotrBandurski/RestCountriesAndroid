@@ -26,14 +26,6 @@ public abstract class BaseMVPViewFragment extends BaseFragment implements MvpVie
     @Inject
     SnackbarUtil snackbarUtil;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (savedInstanceState != null) {
-            inject();
-        }
-    }
-
     @CallSuper
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -58,9 +50,5 @@ public abstract class BaseMVPViewFragment extends BaseFragment implements MvpVie
     }
 
     protected abstract MvpPresenter getPresenter();
-
-    protected void inject(){
-        DependencyUtil.INSTANCE.inject(getBaseActivity(), this);
-    }
 
 }

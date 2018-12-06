@@ -4,6 +4,7 @@ import io.reactivex.observers.DisposableSingleObserver
 import piotr.bandurski.restcountries.base.BasePresenter
 import piotr.bandurski.restcountries.data.model.database.Country
 import piotr.bandurski.restcountries.data.usecases.GetAllCountriesSingleUseCase
+import piotr.bandurski.restcountries.presentation.list.adapter.CountriesListFactory
 import piotr.bandurski.restcountries.util.ApiErrorUtil
 import javax.inject.Inject
 
@@ -12,6 +13,7 @@ import javax.inject.Inject
  */
 
 class CountriesListPresenter @Inject constructor(private val getAllCountriesSingleUseCase: GetAllCountriesSingleUseCase,
+                                                 private val countriesListFactory: CountriesListFactory,
                                                  private val apiErrorUtil: ApiErrorUtil) : BasePresenter<CountriesListContract.View>(), CountriesListContract.Presenter {
 
     override fun loadCountries() {
@@ -30,7 +32,9 @@ class CountriesListPresenter @Inject constructor(private val getAllCountriesSing
         override fun onSuccess(t: List<Country>) {
             view?.run {
                 hideLoading()
-                bindCountriesToView(t)
+                val viewModels = countriesListFactory.create(t)
+                getViewModel().countriesListViewModels = viewModels
+                bindCountriesToView(viewModels)
             }
         }
 

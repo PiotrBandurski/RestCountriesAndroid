@@ -3,6 +3,7 @@ package piotr.bandurski.restcountries.dependencyinjection
 import android.app.Activity
 import piotr.bandurski.restcountries.RestCountriesApplication
 import piotr.bandurski.restcountries.base.BaseActivity
+import piotr.bandurski.restcountries.dependencyinjection.annotations.ActivitySingleton
 import toothpick.Scope
 import toothpick.Toothpick
 import toothpick.smoothie.module.SmoothieApplicationModule
@@ -35,6 +36,7 @@ object DependencyUtil {
     fun openScopeAndInject(activity: BaseActivity){
         val scope = Toothpick.openScopes(activity.application, activity)
         scope.installModules(SmoothieSupportActivityModule(activity), RestCountriesActivityModule(activity))
+        scope.bindScopeAnnotation(ActivitySingleton::class.java)
         scopes[activity] = scope
         Toothpick.inject(activity, scope)
     }
